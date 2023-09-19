@@ -11,7 +11,7 @@ router.get('/search/:departure/:arrival/:date', (req,res) => {
     Trip.find({departure : new RegExp(req.params.departure , 'i' ) , arrival : new RegExp(req.params.arrival, 'i'),
      date:{$gte:startOfDay(new Date(req.params.date)),$lt:endOfDay(new Date(req.params.date))}})
     .then(trips => {
-        if(!trips){
+        if(trips.length===0){
             res.json({result : false , message : 'No trips found'})
         } else {
             res.json({result : true , trips : trips})
