@@ -6,6 +6,7 @@ const Cart = require('../models/cart')
 
 // Route recherche dans collection trips à utiliser lors du click sur search de la page home.html
 router.get('/search/:departure/:arrival/:date', (req,res) => {
+    console.log(req.body);
     Trip.find({departure : new RegExp(req.params.departure , 'i' ) , arrival : new RegExp(req.params.arrival, 'i'), date:new Date(req.params.date)})
     .then(trips => {
         if(!trips){
