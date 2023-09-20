@@ -22,26 +22,21 @@ router.get('/search/:departure/:arrival/:date', (req,res) => {
 // Route afin de créer un document dans la collection cart lors du click sur la page home.html
 router.post('/addCart' , (req,res) => {
     const cartTrip = new Cart ({
-        departure : req.body.departure,
-        arrival : req.body.arrival,
-        date : new Date(req.body.date),
-        price : req.body.price
+    trips : req.body.trips
     })
     cartTrip.save().then(() => {
-        Cart.find({departure : req.body.departure,
-            arrival : req.body.arrival,
-            date : new Date(req.body.date),
-            price : req.body.price})
-            .then(trip => {
-                if(trip){
+        Cart.find({trips:req.body.trips})
+            .populate('trips')
+            .then(trips => {
+                if(trips.length>0){
                     res.json({result:true,message:'Trip has been added to cart'})
                 } else {
                     res.json({result:false,error:'Nothing added to cart'})
                 }
-            })
-        
+            })       
     })
 })
+
 
 
 
