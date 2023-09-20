@@ -10,4 +10,5 @@ router.get('/display',(req,res) => {
     })
 })
 
+//Booking.deleteMany().then(console.log('deleted'))
 module.exports=router

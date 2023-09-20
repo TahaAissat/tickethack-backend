@@ -25,7 +25,10 @@ router.post('/purchase' , (req,res) => {
         tripBooked.save().then(()=>{
             console.log('trip saved')
         })
-        } res.json({result:true,message:'Trip have been booked'})
+        }
+        Cart.deleteMany({}).then(()=>{
+            res.json({result:true,message:'Trip have been booked'})  
+        })
       })
         }
 
@@ -37,7 +40,7 @@ router.post('/purchase' , (req,res) => {
 // Route pour suppression d'un voyage de la collection cart
 router.delete('/deleteCart' , (req,res) =>{
     Cart.deleteOne({
-        trips:req.body.trips
+        trips:req.body.id
     })
         .then(data => {
             if (data.deletedCount > 0){ 
