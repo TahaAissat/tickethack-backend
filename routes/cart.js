@@ -5,8 +5,10 @@ const Booking = require('../models/bookings')
 
 // Route pour afficher tous les voyages dans la connection cart
 router.get('/display' , (req,res) => {
-    Cart.find().then(trips => {
-        res.json({result:true,trips:trips})
+    Cart.find()
+    .populate('trips')
+    .then(trips => {
+        res.json({result:true,allTrips:trips})
     })
 })
 
